@@ -4,7 +4,11 @@ const year = document.getElementById("year");
 if (year) year.textContent = String(new Date().getFullYear());
 
 const navigation = Array.from(document.querySelectorAll(".section-nav a"));
-const sections = navigation.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+const sections = navigation
+  .map((link) => link.getAttribute("href"))
+  .filter((href) => href && href.startsWith("#"))
+  .map((href) => document.getElementById(href.slice(1)))
+  .filter(Boolean);
 
 function markCurrent(id) {
   for (const link of navigation) {
